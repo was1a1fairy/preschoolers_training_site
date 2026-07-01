@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбирашка - Категории</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<header class="header py-3">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="logo-text mb-0"><span class="logo-emoji">🌸</span> Выбирашка <span id="adminBadge" class="admin-badge" style="display:none;">ADMIN</span></h2>
+            <div>
+                <button id="loginBtn" class="btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Войти</button>
+                <button id="registerBtn" class="btn btn-main" data-bs-toggle="modal" data-bs-target="#registerModal">Регистрация</button>
+                <a id="profileBtn" href="/profile" class="btn btn-primary me-2" style="display:none;">Профиль</a>
+                <a id="adminButton" href="/admin" class="btn btn-outline-dark me-2" style="display:none;">⚙ Админ</a>
+                <button id="logoutBtn" class="btn btn-outline-danger" style="display:none;">Выйти</button>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container py-5 fade-in">
+    <h1 class="text-center mb-4">📚 Выберите категорию</h1>
+    <div class="row g-4" id="categoriesContainer">
+    </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Вход</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Пароль</label>
+                        <input type="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Войти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Register Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Регистрация</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm">
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Пароль</label>
+                        <input type="password" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Подтвердите пароль</label>
+                        <input type="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <footer class="footer">
+        <div class="footer-logo">🌸 Выбирашка</div>
+        <div class="footer-divider"></div>
+        <div class="footer-info">2026</div>
+        <div class="footer-info">Соломатина Арианна</div>
+        <div class="footer-info">сайт для обучения дошкольников</div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/src/notifications.js"></script>
+    <script src="/src/api.js"></script>
+    <script src="/src/app.js"></script>
+    <script src="/src/auth.js"></script>
+    <script src="/src/categories.js"></script>
+</body>
+</html>

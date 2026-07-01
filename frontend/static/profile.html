@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<header class="header py-3">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="logo-text mb-0"><span class="logo-emoji">🌸</span> Выбирашка <span id="adminBadge" class="admin-badge" style="display:none;">ADMIN</span></h2>
+            <div>
+                <a href="/categories" class="btn btn-outline-secondary me-2">📚 Категории</a>
+                <a id="adminButton" href="/admin" class="btn btn-outline-dark me-2" style="display:none;">⚙ Админ</a>
+                <button class="btn btn-danger" onclick="logout()">🚪 Выйти</button>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container py-5 fade-in">
+    <div class="profile-header">
+        <div class="profile-avatar">👤</div>
+        <h1 class="profile-name" id="userName">Загрузка...</h1>
+        <p class="profile-email" id="userEmail"></p>
+    </div>
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-value" id="tasksCount">0</div>
+            <div class="stat-label">Выполнено верно</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-value" id="attemptsCount">0</div>
+            <div class="stat-label">Всего попыток</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">📈</div>
+            <div class="stat-value" id="accuracyPercent">0%</div>
+            <div class="stat-label">Точность ответов</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">📚</div>
+            <div class="stat-value" id="categoriesCount">0</div>
+            <div class="stat-label">Категорий пройдено</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🕒</div>
+            <div class="stat-value" id="lastActivity">—</div>
+            <div class="stat-label">Последняя активность</div>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3 class="mb-3">📈 Прогресс по точности</h3>
+            <div class="progress">
+                <div class="progress-bar" id="progressBar" role="progressbar" style="width: 0%">0%</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-section">
+        <div class="admin-section-header">
+            <span class="admin-section-icon">📚</span>
+            <h3 class="admin-section-title">Прогресс по категориям</h3>
+        </div>
+        <div id="categoryProgressList">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <div class="loading-text">Загрузка...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-logo">🌸 Выбирашка</div>
+    <div class="footer-divider"></div>
+    <div class="footer-info">2026</div>
+    <div class="footer-info">Соломатина Арианна</div>
+    <div class="footer-info">сайт для обучения дошкольников</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/src/notifications.js?v=20260701"></script>
+<script src="/src/api.js?v=20260701"></script>
+<script src="/src/auth.js?v=20260701"></script>
+<script src="/src/profile.js?v=20260701"></script>
+</body>
+</html>

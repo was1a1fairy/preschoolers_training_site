@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<header class="header py-3">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="logo-text mb-0"><span class="logo-emoji"></span> Выбирашка</h2>
+            <button class="btn btn-danger" onclick="logout()">🚪 Выйти</button>
+        </div>
+    </div>
+</header>
+<div class="container py-5 fade-in">
+    <h1 class="mb-4">админ-панель</h1>
+    
+    <ul class="nav nav-pills mb-4" id="adminTabs" role="tablist">
+        <li class="nav-item">
+            <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#stats">📊 статистика</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#categories">📚 категории</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tasks">📝 задания</button>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="stats">
+            <div class="admin-section">
+                <div class="admin-section-header">
+                    <span class="admin-section-icon">📊</span>
+                    <h3 class="admin-section-title">статистика</h3>
+                </div>
+                <div id="statsContainer">
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                        <div class="loading-text">Загрузка...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="categories">
+            <div class="admin-section">
+                <div class="admin-section-header">
+                    <span class="admin-section-icon">➕</span>
+                    <h3 class="admin-section-title">создать категорию</h3>
+                </div>
+                <div class="admin-form">
+                    <form id="createCategoryForm">
+                        <div class="mb-3">
+                            <label class="form-label">название</label>
+                            <input type="text" class="form-control" id="categoryName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Изображение категории</label>
+                            <input
+                                type="file"
+                                id="categoryImageFile"
+                                class="form-control"
+                                accept="image/*"
+                            >
+                            <img
+                                id="categoryPreview"
+                                src=""
+                                style="
+                                    display:none;
+                                    margin-top:15px;
+                                    max-width:80px;
+                                    max-height:80px;
+                                    border-radius:12px;
+                                    border:1px solid #ddd;
+                                    object-fit: cover;
+                                "
+                            >
+                        </div>
+                        <button type="submit" class="btn btn-primary">✨ создать</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="admin-section">
+                <div class="admin-section-header">
+                    <span class="admin-section-icon">📚</span>
+                    <h3 class="admin-section-title">список категорий</h3>
+                </div>
+                <div id="categoriesList">
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                        <div class="loading-text">Загрузка...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="tasks">
+            <div class="admin-section">
+                <div class="admin-section-header">
+                    <span class="admin-section-icon">➕</span>
+                    <h3 class="admin-section-title">создать задание</h3>
+                </div>
+                <div class="admin-form">
+                    <form id="createTaskForm">
+                        <div class="mb-3">
+                            <label class="form-label">категория</label>
+                            <select class="form-select" id="taskCategory" required></select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">сложность (1-5)</label>
+                            <input type="number" class="form-control" id="taskDifficulty" min="1" max="5" value="1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">мин. возраст</label>
+                            <input type="number" class="form-control" id="taskMinAge" min="2" max="6" value="2" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">макс. возраст</label>
+                            <input type="number" class="form-control" id="taskMaxAge" min="2" max="6" value="5" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">вопрос</label>
+                            <input type="text" class="form-control" id="taskQuestion" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">варианты ответов</label>
+                            <input type="text" class="form-control" id="taskOptions" placeholder="кот,собака,лиса" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">правильный ответ</label>
+                            <input type="text" class="form-control" id="taskCorrectAnswer" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Изображение задания</label>
+                            <input
+                                type="file"
+                                id="taskImageFile"
+                                class="form-control"
+                                accept="image/*"
+                            >
+                            <img
+                                id="taskPreview"
+                                src=""
+                                style="
+                                    display:none;
+                                    margin-top:15px;
+                                    max-width:250px;
+                                    border-radius:12px;
+                                    border:1px solid #ddd;
+                                "
+                            >
+                        </div>
+                        <button type="submit" class="btn btn-primary">✨ создать</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="admin-section">
+                <div class="admin-section-header">
+                    <span class="admin-section-icon">📝</span>
+                    <h3 class="admin-section-title">список заданий</h3>
+                </div>
+                <div id="tasksList">
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                        <div class="loading-text">Загрузка...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-logo">🌸 Выбирашка</div>
+    <div class="footer-divider"></div>
+    <div class="footer-info">2026</div>
+    <div class="footer-info">Соломатина Арианна</div>
+    <div class="footer-info">сайт для обучения дошкольников</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/src/notifications.js"></script>
+<script src="/src/api.js"></script>
+<script src="/src/auth.js"></script>
+<script src="/src/admin.js"></script>
+</body>
+</html>
