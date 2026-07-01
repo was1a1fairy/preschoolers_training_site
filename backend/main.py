@@ -9,23 +9,25 @@ from backend.api.content import router as content_router
 from backend.api.upload import router as upload_router
 from backend.api.services.auth_service import pwd_context
 from backend.db import models
-from backend.db.base import get_db
+from backend.config import settings
+from backend.db.base import SessionLocal, init_db
 from backend.dependencies import get_admin
-
-from env import default_admin_email,default_admin_password
 
 def create_default_admin() -> None:
     """Ensure the default admin user exists."""
-    db = next(get_db())
-    admin = db.query(models.User).filter(models.User.email == default_admin_email).first()
-    if not admin:
-        admin = models.User(
-            email=default_admin_email,
-            hashed_password=pwd_context.hash(default_admin_password),
-            role="admin",
-        )
-        db.add(admin)
-        db.commit()
+    db = SessionLocal()
+    try:
+        admin = db.query(models.User).filter(models.User.email == settings.default_admin_email).first()
+        if not admin:
+            admin = models.User(
+                email=settings.default_admin_email,
+                hashed_password=pwd_context.hash(settings.default_admin_password),
+                role="admin",
+            )
+            db.add(admin)
+            db.commit()
+    finally:
+        db.close()
 
 
 app = FastAPI(title="Preschoolers Training Site")
@@ -34,6 +36,7 @@ app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
 app.mount("/src", StaticFiles(directory="frontend/src"), name="src")
 app.mount("/uploads", StaticFiles(directory="backend/uploads"), name="uploads")
 
+init_db()
 create_default_admin()
 
 app.include_router(auth_router, prefix="/api/auth", tags=["auth"])

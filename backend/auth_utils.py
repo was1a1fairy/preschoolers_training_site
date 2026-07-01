@@ -4,9 +4,9 @@ from typing import Any, Dict, Optional
 
 from jose import JWTError, jwt
 
-from env import secret_key_jwt
+from backend.config import settings
 
-SECRET_KEY = os.getenv("SECRET_KEY", secret_key_jwt)
+SECRET_KEY = os.getenv("SECRET_KEY", settings.secret_key_jwt)
 ALGORITHM = "HS256"
 
 

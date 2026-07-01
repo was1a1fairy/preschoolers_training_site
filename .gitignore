@@ -141,8 +141,10 @@ celerybeat.pid
 
 # Environments
 .env.py
+.env
 .envrc
 .venv
+.uv-cache/
 env/
 venv/
 ENV/
